@@ -1,0 +1,91 @@
+{
+  "expo": {
+    "name": "Efuafinex Admin",
+    "slug": "efuafinex_admin_app",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/images/icon.png",
+    "scheme": "myapp",
+    "userInterfaceStyle": "automatic",
+    "newArchEnabled": true,
+    "backgroundColor": "#FAFAFA",
+    "ios": {
+      "supportsTablet": false,
+      "usesAppleSignIn": true,
+      "infoPlist": {
+        "NSCameraUsageDescription": "This app would like to get access to your camera to take photos for your profile or posts",
+        "NSPhotoLibraryAddUsageDescription": "This app would like to save images to your device",
+        "NSPhotoLibraryUsageDescription": "This app would like to save images to your device",
+        "LSApplicationQueriesSchemes": [
+          "tel",
+          "http",
+          "https",
+          "mailto"
+        ],
+        "CFBundleURLTypes": [
+          {
+            "CFBundleURLSchemes": [
+              ""
+            ]
+          }
+        ]
+      },
+      "bundleIdentifier": "com.polyboticstech.efuafinexadmin"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/images/icon.png",
+        "backgroundColor": "#FAFAFA"
+      },
+      "navigationBarColor": "#FAFAFA",
+      "permissions": [
+        "android.permission.WRITE_EXTERNAL_STORAGE",
+        "android.permission.READ_EXTERNAL_STORAGE",
+        "android.permission.RECORD_AUDIO"
+      ],
+      "package": "com.polyboticstech.efuafinexadmin"
+    },
+    "web": {
+      "bundler": "metro",
+      "output": "static",
+      "favicon": "./assets/images/favicon.png"
+    },
+    "plugins": [
+      "expo-router",
+      "expo-apple-authentication",
+      "@react-native-google-signin/google-signin",
+      [
+        "expo-splash-screen",
+        {
+          "image": "./assets/images/splash-icon.png",
+          "imageWidth": 200,
+          "resizeMode": "contain",
+          "backgroundColor": "#FAFAFA"
+        }
+      ],
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "Allow access to photos to upload photo(s) from your library"
+        }
+      ]
+    ],
+    "experiments": {
+      "typedRoutes": true
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "ffabf941-73bd-4213-9944-802bb1bce714"
+      }
+    },
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": ""
+    }
+  }
+}
