@@ -39,14 +39,20 @@ const UserCard = ({ data, full, clickable = true }) => {
 
   return (
     <View style={styles(theme).component}>
-      {Boolean(is_verified && String(phone) != "") && (
-        <View style={styles(theme).verifiedCont}>
+      <View style={styles(theme).verifiedCont}>
+        {Boolean(is_verified) ? (
           <View>
-            <Text style={styles(theme).verifiedTag}>Verified</Text>
+            <Text style={styles(theme).verifiedTag(true)}>Verified</Text>
           </View>
+        ) : (
+          <View>
+            <Text style={styles(theme).verifiedTag(false)}>Unverified</Text>
+          </View>
+        )}
 
-          {/**email and phone buttons */}
-          <View style={styles(theme).verifiedActions}>
+        {/**email and phone buttons */}
+        <View style={styles(theme).verifiedActions}>
+          {Boolean(is_verified) && Boolean(email != "") && (
             <TouchableOpacity
               style={styles(theme).verifiedActionButton}
               onPress={() => _sendUserMail()}
@@ -57,7 +63,9 @@ const UserCard = ({ data, full, clickable = true }) => {
                 color={COLOR_THEME[theme].primary}
               />
             </TouchableOpacity>
+          )}
 
+          {Boolean(phone != "") && (
             <TouchableOpacity
               style={styles(theme).verifiedActionButton}
               onPress={() => _callUserPhone()}
@@ -68,9 +76,9 @@ const UserCard = ({ data, full, clickable = true }) => {
                 color={COLOR_THEME[theme].primary}
               />
             </TouchableOpacity>
-          </View>
+          )}
         </View>
-      )}
+      </View>
 
       {/**user preview */}
       <TouchableOpacity
@@ -156,17 +164,19 @@ const styles = (theme) =>
       justifyContent: "space-between",
       gap: 16,
     },
-    verifiedTag: {
+    verifiedTag: (verified) => ({
       alignSelf: "flex-start",
       maxWidth: 150,
       paddingVertical: 4,
       paddingHorizontal: 16,
       borderRadius: BORDER_RADIUS.xs,
-      backgroundColor: COLOR_THEME[theme].gray50,
+      backgroundColor: verified
+        ? COLOR_THEME[theme].successFaded
+        : COLOR_THEME[theme].errorFaded,
       fontSize: FONT_SIZE.xs,
       fontWeight: FONT_WEIGHT.regular,
-      color: COLOR_THEME[theme].gray200,
-    },
+      color: verified ? COLOR_THEME[theme].success : COLOR_THEME[theme].error,
+    }),
     verifiedActions: {
       flexDirection: "row",
       alignItems: "center",

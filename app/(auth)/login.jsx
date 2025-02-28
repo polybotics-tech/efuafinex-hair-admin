@@ -64,7 +64,7 @@ export default function Login() {
         setForm={setFormData}
       />
 
-      {/**forgot passcode */}
+      {/**forgot passcode 
       <Pressable
         style={styles(theme).forgotBtn}
         onPress={() => {
@@ -72,7 +72,7 @@ export default function Login() {
         }}
       >
         <Text style={styles(theme).forgotPass}>Forgot passcode?</Text>
-      </Pressable>
+      </Pressable>*/}
     </AuthScreenWrapper>
   );
 }
