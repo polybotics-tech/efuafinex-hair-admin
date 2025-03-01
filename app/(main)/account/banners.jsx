@@ -140,6 +140,12 @@ const AddButton = ({ theme, refreshFunc = () => {} }) => {
           buttonIsDisabled={!formData?.photo?.uri}
           formSubmitFunction={submitForm}
         >
+          {/**description */}
+          <Text style={styles(theme).addDesc}>
+            For best quality, upload a jpeg photo with width-height dimensions
+            of (1080 x 512)
+          </Text>
+
           {/**photo picker */}
           <PhotoPicker name={"photo"} form={formData} setForm={setFormData} />
         </AuthScreenWrapper>
@@ -213,6 +219,12 @@ const styles = (theme) =>
       fontSize: FONT_SIZE.m,
       fontWeight: FONT_WEIGHT.semibold,
       color: COLOR_THEME[theme].white,
+    },
+    addDesc: {
+      fontSize: FONT_SIZE.m,
+      fontWeight: FONT_WEIGHT.regular,
+      color: COLOR_THEME[theme].gray200,
+      textAlign: "center",
     },
     bannerList: {
       width: "100%",
