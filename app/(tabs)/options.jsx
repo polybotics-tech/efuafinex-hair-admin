@@ -78,6 +78,12 @@ export default function Options() {
 
       {/**support card */}
       <SectionContainer title={"Miscellaneous"} theme={theme}>
+        <OptionTag
+          title={"Manage App Banners"}
+          icon={"image"}
+          path={"/account/banners/"}
+          theme={theme}
+        />
         <ThemeToggle theme={theme} />
         <OptionTag
           title={"Log Out"}

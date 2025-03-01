@@ -48,6 +48,8 @@ export const END_POINTS = {
     update_faq: (faq_id) => API + `/faqs/${faq_id}`,
     contact_info: API + `/faqs/contacts/`,
     send_mail: API + `/faqs/sendmail/`,
+    banners: (page = 1) => API + `/banners/?page=${page}`,
+    delete_banner: (banner_id = "") => API + `/banners/${banner_id}/`,
   },
   transfer: {
     verify_account: API + "/transfers/verify/account/",

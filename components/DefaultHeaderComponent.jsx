@@ -20,6 +20,7 @@ const DefaultHeaderComponent = ({ directory }) => {
       contact: "Manage Contact Info",
       faqs: "Frequently Asked Questions",
       emails: "Send Bulk Email",
+      banners: "Manage App Banners",
     },
     records: {
       deposit: "Deposit Records",

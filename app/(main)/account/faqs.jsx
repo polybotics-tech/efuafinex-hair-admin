@@ -160,12 +160,6 @@ const AddFaqsButton = ({ theme, refreshFunc = () => {} }) => {
 
     if (success) {
       refreshFunc();
-      //clear form
-      setFormData({
-        question: "",
-        answer: "",
-        tags: "",
-      });
     }
 
     setIsVisible(false);
@@ -187,6 +181,14 @@ const AddFaqsButton = ({ theme, refreshFunc = () => {} }) => {
         title={"Add New FAQs"}
         isVisible={isVisible}
         setIsVisible={setIsVisible}
+        onCloseFunc={() => {
+          //clear form
+          setFormData({
+            question: "",
+            answer: "",
+            tags: "",
+          });
+        }}
       >
         <AuthScreenWrapper
           buttonText={"Add"}
@@ -274,12 +276,6 @@ const FaqsEditButton = ({ theme, refreshFunc = () => {}, faq_id, data }) => {
 
     if (success) {
       refreshFunc();
-      //clear form
-      setFormData({
-        question: "",
-        answer: "",
-        tags: "",
-      });
     }
 
     setIsVisible(false);
@@ -301,6 +297,14 @@ const FaqsEditButton = ({ theme, refreshFunc = () => {}, faq_id, data }) => {
         title={"Edit FAQ"}
         isVisible={isVisible}
         setIsVisible={setIsVisible}
+        onCloseFunc={() => {
+          //clear form
+          setFormData({
+            question: "",
+            answer: "",
+            tags: "",
+          });
+        }}
       >
         <AuthScreenWrapper
           buttonText={"Update"}

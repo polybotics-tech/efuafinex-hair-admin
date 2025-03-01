@@ -19,6 +19,7 @@ import SectionGroupWrapper from "../../components/ui/SectionGroupWrapper";
 import UserCard from "../../components/reuseables/UserCard";
 import NotFoundComponent from "../../components/reuseables/NotFoundComponent";
 import SeeMoreBtn from "../../components/reuseables/SeeMoreBtn";
+import { useLocalSearchParams } from "expo-router";
 
 export default function Users() {
   const theme = useSelector((state) => state.app.theme);
@@ -27,6 +28,15 @@ export default function Users() {
     q: "",
     sort: "all",
   });
+
+  //check for ref
+  const { ref } = useLocalSearchParams();
+
+  useEffect(() => {
+    if (ref) {
+      setFormData({ q: "", sort: ref });
+    }
+  }, [ref]);
 
   const sort_options = ["all", "verified", "unverified"];
 

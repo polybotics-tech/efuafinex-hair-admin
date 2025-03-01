@@ -17,6 +17,7 @@ import { ACTION_UPDATE_TOTAL_TRANSACTION_YEAR } from "../redux/reducer/transacti
 import { DEPOSIT_HOOKS } from "../helpers/hooks/deposit";
 import { USER_HOOKS } from "../helpers/hooks/user";
 import { PACKAGE_HOOKS } from "../helpers/hooks/package";
+import { router } from "expo-router";
 
 const MobileAppSummaryComponent = () => {
   const theme = useSelector((state) => state.app.theme);
@@ -112,7 +113,7 @@ const MobileAppSummaryComponent = () => {
           theme={theme}
           title={"Verified Users"}
           value={`${format_number(verifiedUsers || 0)}`}
-          path={"/users"}
+          path={"/users?ref=verified"}
           icon={"verified"}
           isLoading={vu_loading}
         />
@@ -120,7 +121,7 @@ const MobileAppSummaryComponent = () => {
           theme={theme}
           title={"Delivered Packages"}
           value={`${format_number(deliveredPackages || 0)}`}
-          path={"/packages"}
+          path={"/packages?ref=delivered"}
           icon={"code-of-conduct"}
           isLoading={dp_loading}
         />
@@ -224,11 +225,18 @@ const DisplayTab = ({
   icon = "question",
   title,
   value,
-  path,
+  path = "/",
   isLoading,
 }) => {
+  const _goToPath = () => {
+    router.navigate(`${path}`);
+  };
+
   return (
-    <View style={styles(theme).displayTab}>
+    <TouchableOpacity
+      style={styles(theme).displayTab}
+      onPress={() => _goToPath()}
+    >
       <View style={styles(theme).displayTabTop}>
         <View style={styles(theme).displayTabTopIcon}>
           <Octicons name={icon} size={14} color={COLOR_THEME[theme].gray200} />
@@ -247,7 +255,7 @@ const DisplayTab = ({
       <Text style={styles(theme).displayTabTitle} numberOfLines={2}>
         {title}
       </Text>
-    </View>
+    </TouchableOpacity>
   );
 };
 
