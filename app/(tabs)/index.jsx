@@ -92,7 +92,7 @@ export default function Home() {
         <SectionGroupWrapper title={"Newest App Users"} seeAllPath={"/users"}>
           {newestUsers?.length > 0 ? (
             newestUsers
-              ?.slice(0, 5)
+              ?.slice(0, 10)
               ?.map((item, index) => <UserCard key={index} data={item} />)
           ) : (
             <NotFoundComponent

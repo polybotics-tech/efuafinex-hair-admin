@@ -22,6 +22,8 @@ import { DEBOUNCE } from "../../../helpers/utils/debounce";
 import PackageCard from "../../../components/reuseables/PackageCard";
 import DepositRecord from "../../../components/reuseables/DepositRecord";
 import SeeMoreBtn from "../../../components/reuseables/SeeMoreBtn";
+import { extract_name_from_bank_code } from "../../../helpers/utils";
+import CopyIcon from "../../../components/reuseables/CopyIcon";
 
 export default function UserDetails() {
   const theme = useSelector((state) => state.app.theme);
@@ -72,6 +74,16 @@ export default function UserDetails() {
               <FurtherDetailsComp theme={theme} data={data} />
             </View>
 
+            {/**refund accouont details */}
+            {data?.refund_account_record && (
+              <View style={styles(theme).remotePadder}>
+                <AccountRecordComp
+                  theme={theme}
+                  data={data?.refund_account_record}
+                />
+              </View>
+            )}
+
             {/**user activities */}
             <ActivityComponent theme={theme} user_id={data?.user_id} />
           </>
@@ -103,17 +115,55 @@ const FurtherDetailsComp = ({ theme, data }) => {
         theme={theme}
         title={"Phone Number"}
         value={data?.phone || "--unknown--"}
+        canCopy={true}
       />
     </View>
   );
 };
 
-const FurtherTablet = ({ theme, title, value }) => {
+const FurtherTablet = ({ theme, title, value, canCopy }) => {
   return (
     <View style={styles(theme).furtherTab}>
       <Text style={styles(theme).furtherTabTitle}>{title}</Text>
 
-      <Text style={styles(theme).furtherTabValue}>{value}</Text>
+      <View style={styles(theme).furtherTabValueTab}>
+        <Text style={styles(theme).furtherTabValue}>{value}</Text>
+
+        {canCopy && <CopyIcon text_to_copy={`${value}`} />}
+      </View>
+    </View>
+  );
+};
+
+const AccountRecordComp = ({ theme, data }) => {
+  return (
+    <View style={styles(theme).furtherComp}>
+      <FurtherTablet
+        theme={theme}
+        title={"Bank Name"}
+        value={String(
+          extract_name_from_bank_code(data?.bank_code)
+        )?.toUpperCase()}
+      />
+
+      <FurtherTablet
+        theme={theme}
+        title={"Account Number"}
+        value={data?.account_number || "--unknown--"}
+        canCopy={true}
+      />
+
+      <FurtherTablet
+        theme={theme}
+        title={"Account Name"}
+        value={String(data?.account_name)?.toUpperCase()}
+      />
+
+      <FurtherTablet
+        theme={theme}
+        title={"Last Updated"}
+        value={format_date_time_readable(data?.last_updated)}
+      />
     </View>
   );
 };
@@ -333,8 +383,15 @@ const styles = (theme) =>
       fontWeight: FONT_WEIGHT.semibold,
       color: COLOR_THEME[theme].gray100,
     },
+    furtherTabValueTab: {
+      width: SCREEN_DIMENSION.subtractWidth(16, 32 + 32, 120),
+      flexDirection: "row",
+      alignItems: "center",
+      gap: 4,
+      justifyContent: "flex-end",
+    },
     furtherTabValue: {
-      maxWidth: SCREEN_DIMENSION.subtractWidth(16, 32 + 32, 120),
+      maxWidth: "100%",
       fontSize: FONT_SIZE.s,
       fontWeight: FONT_WEIGHT.regular,
       color: COLOR_THEME[theme].black,
