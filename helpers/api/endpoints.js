@@ -1,4 +1,4 @@
-const HOST = "https://efh.i2medier.com"; //"http://192.168.152.31:5050";
+const HOST = "https://api.efuafinexhair.com"; //"http://192.168.152.31:5050";
 const API = HOST + "/v1/admin";
 
 export const END_POINTS = {
