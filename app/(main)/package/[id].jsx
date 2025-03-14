@@ -270,7 +270,10 @@ const ActionButtonsComp = ({
         {/**action bar */}
         <View style={styles(theme).splitAction}>
           {/**request cashout */}
-          {String(status)?.toLowerCase() === "completed" && (
+          {Boolean(
+            String(status)?.toLowerCase() === "completed" ||
+              String(status)?.toLowerCase() === "expired"
+          ) && (
             <View style={{ width: "100%" }}>
               <PrimaryButton
                 title={"Request Cashout"}

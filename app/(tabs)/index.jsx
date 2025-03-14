@@ -15,6 +15,23 @@ import { router } from "expo-router";
 export default function Home() {
   const theme = useSelector((state) => state.app.theme);
 
+  //fetch expired packages
+  const [expiredPackages, setExpiredPackages] = useState();
+  const [exLoading, setExLoading] = useState(true);
+  const fetch_expired_packages = async () => {
+    const res = await PACKAGE_HOOKS.fetch_multiple_packages(
+      setExLoading,
+      1,
+      "expired"
+    );
+
+    if (res) {
+      const { packages } = res;
+      setExpiredPackages(packages);
+    }
+  };
+  ////////////////////////
+
   //fetch completed packages
   const [completedPackages, setCompletedPackages] = useState();
   const [cpLoading, setCpLoading] = useState(true);
@@ -47,6 +64,7 @@ export default function Home() {
 
   ///load all functions for this page
   const runPageFunctions = () => {
+    fetch_expired_packages();
     fetch_completed_packages();
     fetch_newest_users();
   };
@@ -63,6 +81,32 @@ export default function Home() {
       >
         {/**mobile app summary */}
         <MobileAppSummaryComponent />
+
+        {/**expired package section block */}
+        {expiredPackages && expiredPackages?.length > 0 && (
+          <SectionGroupWrapper
+            title={"Recently expired Packages"}
+            seeAllPath={"/packages?ref=expired"}
+          >
+            {expiredPackages?.length > 0 ? (
+              expiredPackages
+                ?.slice(0, 2)
+                ?.map((item, index) => (
+                  <PackageCard
+                    key={index}
+                    data={item}
+                    type={item?.package_type}
+                    clickable={true}
+                  />
+                ))
+            ) : (
+              <NotFoundComponent
+                text={"No expired packages found"}
+                isLoading={exLoading}
+              />
+            )}
+          </SectionGroupWrapper>
+        )}
 
         {/**completed package section block */}
         <SectionGroupWrapper
